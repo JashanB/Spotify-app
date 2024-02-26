@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/JashanB/Spotify-app/issues"
   },
-  "homepage": "https://github.com/JashanB/Spotify-app#readme"
+  "homepage": "https://github.com/JashanB/Spotify-app#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
