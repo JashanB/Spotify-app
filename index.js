@@ -4,6 +4,7 @@ const port = 8000;
 const app = express();
 const clientId = process.env.CLIENTID;
 const clientSecret = process.env.CLIENTSECRET;
+const redirectUrl = process.env.REDIRECT_URL;
 
 app.get('/', (req, res) => {
     // res.send("hello")
