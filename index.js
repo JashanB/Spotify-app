@@ -15,9 +15,8 @@ app.get('/', (req, res) => {
     res.json(data);
 })
 
-app.get('/awesome-generator', (req, res) => {
-    const {name, isAwesome} = req.query;
-    res.send(`${name} is ${JSON.parse(isAwesome) ? 'really' : 'not '} awesome`)
+app.get('/login', (req, res) => {
+    res.redirect(`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_url=${redirectUrl}`)
 })
 
 app.listen(port, () => {
