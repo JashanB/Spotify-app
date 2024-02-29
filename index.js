@@ -46,31 +46,43 @@ app.get('/login', (req, res) => {
 
 app.get('/callback', (req, res) => {
     const code = req.query.code || null;
-  
+
     axios({
-      method: 'post',
-      url: 'https://accounts.spotify.com/api/token',
-      data: querystring.stringify({
-        grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: redirectUrl
-      }),
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
-      },
+        method: 'post',
+        url: 'https://accounts.spotify.com/api/token',
+        data: querystring.stringify({
+            grant_type: 'authorization_code',
+            code: code,
+            redirect_uri: redirectUrl
+        }),
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+        },
     })
-      .then(response => {
-        if (response.status === 200) {
-          res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
-        } else {
-          res.send(response);
-        }
-      })
-      .catch(error => {
-        res.send(error);
-      });
-  });
+        .then(response => {
+            if (response.status === 200) {
+                const { access_token, token_type } = response.data;
+
+                axios.get('https://api.spotify.com/v1/me', {
+                    headers: {
+                        Authorization: `${token_type} ${access_token}`
+                    }
+                })
+                    .then(response => {
+                        res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
+                    })
+                    .catch(error => {
+                        res.send(error);
+                    });
+            } else {
+                res.send(response);
+            }
+        })
+        .catch(error => {
+            res.send(error);
+        });
+});
 
 app.listen(port, () => {
     console.log(`Express app runnning at ${port}`)
