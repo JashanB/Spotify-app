@@ -86,7 +86,7 @@ app.get('/callback', (req, res) => {
 
 app.get('/refresh_token', (req, res) => {
     const { refresh_token } = req.query;
-    
+
     axios({
         method: 'post',
         url: 'https://accounts.spotify.com/api/token',
@@ -102,12 +102,9 @@ app.get('/refresh_token', (req, res) => {
         .then(response => {
             if (response.status === 200) {
                 const { access_token, token_type } = response.data;
+                const { refresh_token } = response.data
 
-                axios.get('https://api.spotify.com/v1/me', {
-                    headers: {
-                        Authorization: `${token_type} ${access_token}`
-                    }
-                })
+                axios.get(`https://localhost:8000/refresh_token?refresh_token=${refresh_token}`)
                     .then(response => {
                         res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
                     })
