@@ -5,7 +5,7 @@ const app = express();
 app.get('/', (req, res) => {
     // res.send("hello")
     const data = {
-        name: Jashan,
+        name: 'Jashan',
         isAwesome: true
     }
     res.json(data);
