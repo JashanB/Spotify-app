@@ -1,6 +1,8 @@
 const express = require('express');
 const port = 8000;
 const app = express();
+const clientId = process.env.CLIENTID;
+const clientSecret = process.env.CLIENTSECRET;
 
 app.get('/', (req, res) => {
     // res.send("hello")
