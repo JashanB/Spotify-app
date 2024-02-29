@@ -44,35 +44,33 @@ app.get('/login', (req, res) => {
     res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`)
 })
 
-app.get('callback', (req, res) => {
-    res.send('callback');
-
-    const code = req.query.code || null
-    axious({
-        method: 'post',
-        url: 'https://accounts.spotify.com/api/token',
-        data: querystring.stringify({
-            grant_type: 'authorization_code',
-            code: 'code',
-            redirect_uri: redirectUrl
-        }),
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded',
-            Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
-        },
+app.get('/callback', (req, res) => {
+    const code = req.query.code || null;
+  
+    axios({
+      method: 'post',
+      url: 'https://accounts.spotify.com/api/token',
+      data: querystring.stringify({
+        grant_type: 'authorization_code',
+        code: code,
+        redirect_uri: redirectUrl
+      }),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+      },
     })
-        .then(response => {
-            if (response.status === 200) {
-                res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
-            } else {
-                res.send(response);
-            }
-        })
-        .catch(error => {
-            res.send(error);
-        });
-
-})
+      .then(response => {
+        if (response.status === 200) {
+          res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
+        } else {
+          res.send(response);
+        }
+      })
+      .catch(error => {
+        res.send(error);
+      });
+  });
 
 app.listen(port, () => {
     console.log(`Express app runnning at ${port}`)
