@@ -1,8 +1,10 @@
 require('dotenv').config();
 const querystring = require('querystring');
 const express = require('express');
+const axios = require('axios');
 const port = 8000;
 const app = express();
+
 const clientId = process.env.CLIENTID;
 const clientSecret = process.env.CLIENTSECRET;
 const redirectUrl = process.env.REDIRECT_URL;
@@ -44,6 +46,13 @@ app.get('/login', (req, res) => {
 
 app.get('callback', (req, res) => {
     res.send('callback');
+
+    const code = req.query.code|| null
+    axious({
+        method: 'post',
+        url: 'https://accounts.spotify.com/api/token'
+    })
+
 })
 
 app.listen(port, () => {
