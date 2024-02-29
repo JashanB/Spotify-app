@@ -29,12 +29,21 @@ const stateKey = 'spotify_auth_state';
 
 app.get('/login', (req, res) => {
     const state = generateRandomString(16);
+    res.cookie(stateKey, state);
+
+    const scope = 'user-read-private user-read-email'
     const queryParams = querystring.stringify({
         client_id: clientId,
         response_type: 'code',
-        redirect_uri: redirectUrl
+        redirect_uri: redirectUrl,
+        state: state,
+        scope: scope
     })
     res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`)
+})
+
+app.get('callback', (req, res) => {
+    res.send('callback');
 })
 
 app.listen(port, () => {
