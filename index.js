@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-    res.redirect(`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_url=${redirectUrl}`)
+    res.redirect(`https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${redirectUrl}`)
 })
 
 app.listen(port, () => {
