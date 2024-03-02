@@ -78,12 +78,11 @@ app.get('/callback', (req, res) => {
                 //     });
 
                 //Testing refresh token
-                axios.get(`https://localhost:8000/refresh_token?refresh_token=${refresh_token}`)
+                axios.get(`http://localhost:8000/refresh_token?refresh_token=${refresh_token}`)
                     .then(response => {
                         res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
                     })
                     .catch(error => {
-                        console.log('error')
                         res.send(error);
                     });
             } else {
@@ -97,26 +96,26 @@ app.get('/callback', (req, res) => {
 
 app.get('/refresh_token', (req, res) => {
     const { refresh_token } = req.query;
-  
+
     axios({
-      method: 'post',
-      url: 'https://accounts.spotify.com/api/token',
-      data: querystring.stringify({
-        grant_type: 'refresh_token',
-        refresh_token: refresh_token
-      }),
-      headers: {
-        'content-type': 'application/x-www-form-urlencoded',
-        Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
-    },
+        method: 'post',
+        url: 'https://accounts.spotify.com/api/token',
+        data: querystring.stringify({
+            grant_type: 'refresh_token',
+            refresh_token: refresh_token
+        }),
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+        },
     })
-      .then(response => {
-        res.send(response.data);
-      })
-      .catch(error => {
-        res.send(error);
-      });
-  });
+        .then(response => {
+            res.send(response.data);
+        })
+        .catch(error => {
+            res.send(error);
+        });
+});
 
 app.listen(port, () => {
     console.log(`Express app runnning at ${port}`)
