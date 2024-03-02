@@ -100,20 +100,7 @@ app.get('/refresh_token', (req, res) => {
         },
     })
         .then(response => {
-            if (response.status === 200) {
-                const { access_token, token_type } = response.data;
-                const { refresh_token } = response.data
-
-                axios.get(`https://localhost:8000/refresh_token?refresh_token=${refresh_token}`)
-                    .then(response => {
-                        res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
-                    })
-                    .catch(error => {
-                        res.send(error);
-                    });
-            } else {
-                res.send(response);
-            }
+            res.send(response);
         })
         .catch(error => {
             res.send(error);
