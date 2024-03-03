@@ -1,7 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect } from 'react';
+
 
 function App() {
+
+  useEffect(() => {
+    const querystring = window.location.search;
+    const urlParams = new URLSearchParams(querystring);
+    const accessToken = urlParams.get('access_token');
+    const refreshToken = urlParams.get('refresh_token');
+   
+  }, []) 
   return (
     <div className="App">
       <header className="App-header">
