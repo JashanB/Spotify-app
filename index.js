@@ -4,9 +4,6 @@ const express = require('express');
 const axios = require('axios');
 const port = 8000;
 const app = express();
-const cors = require('cors');
-
-app.use(cors());
 
 const clientId = process.env.CLIENTID;
 const clientSecret = process.env.CLIENTSECRET;

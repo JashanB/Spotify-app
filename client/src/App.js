@@ -15,7 +15,7 @@ function App() {
     console.log(refreshToken);
 
     if (refreshToken) {
-      fetch(`http://localhost:8000/refresh_token?refresh_token=${refreshToken}`)
+      fetch(`/refresh_token?refresh_token=${refreshToken}`)
         .then(res => res.json())
         .then(data => console.log(data))
         .catch(err => console.error(err));
