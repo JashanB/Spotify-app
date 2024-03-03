@@ -33,15 +33,16 @@ app.get('/login', (req, res) => {
     const state = generateRandomString(16);
     res.cookie(stateKey, state);
 
-    const scope = 'user-read-private user-read-email'
+    const scope = 'user-read-private user-read-email';
     const queryParams = querystring.stringify({
         client_id: clientId,
         response_type: 'code',
         redirect_uri: redirectUrl,
         state: state,
         scope: scope
-    })
-    res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`)
+    });
+    //triggers callback route
+    res.redirect(`https://accounts.spotify.com/authorize?${queryParams}`);
 })
 
 app.get('/callback', (req, res) => {
@@ -62,9 +63,10 @@ app.get('/callback', (req, res) => {
     })
         .then(response => {
             if (response.status === 200) {
-                const { access_token, token_type } = response.data;
-                const { refresh_token } = response.data;
+                // const { access_token, token_type } = response.data;
+                const { access_token, refresh_token } = response.data;
 
+                //Use token to access profile
                 // axios.get('https://api.spotify.com/v1/me', {
                 //     headers: {
                 //         Authorization: `${token_type} ${access_token}`
@@ -78,13 +80,13 @@ app.get('/callback', (req, res) => {
                 //     });
 
                 //Testing refresh token
-                axios.get(`http://localhost:8000/refresh_token?refresh_token=${refresh_token}`)
-                    .then(response => {
-                        res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
-                    })
-                    .catch(error => {
-                        res.send(error);
-                    });
+                // axios.get(`http://localhost:8000/refresh_token?refresh_token=${refresh_token}`)
+                //     .then(response => {
+                //         res.send(`<pre>${JSON.stringify(response.data, null, 2)}</pre>`);
+                //     })
+                //     .catch(error => {
+                //         res.send(error);
+                //     });
             } else {
                 res.send(response);
             }
