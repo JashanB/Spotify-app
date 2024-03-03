@@ -66,6 +66,7 @@ app.get('/callback', (req, res) => {
                 // const { access_token, token_type } = response.data;
                 const { access_token, refresh_token } = response.data;
 
+                res.redirect(`http://localhost:3000/?${queryParams}`);
                 //Use token to access profile
                 // axios.get('https://api.spotify.com/v1/me', {
                 //     headers: {
