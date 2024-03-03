@@ -10,7 +10,11 @@ function App() {
     const urlParams = new URLSearchParams(querystring);
     const accessToken = urlParams.get('access_token');
     const refreshToken = urlParams.get('refresh_token');
-   
+    if (refreshToken) {
+      fetch(`http://localhost:8000/refresh_token?refresh_token=
+      ${refreshToken}`)
+      
+    }
   }, []) 
   return (
     <div className="App">
