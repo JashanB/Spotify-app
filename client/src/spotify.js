@@ -111,4 +111,4 @@ axios.defaults.headers['Authorization'] = `Bearer ${access_token}`;
 axios.defaults.headers['Content-Type'] = 'application/json';
 
 //Use token to access profile
-export const getCurrentUserProfile = () => { axios.get('/me') }
+export const getCurrentUserProfile = () => axios.get('/me');
