@@ -12,6 +12,14 @@ const LOCALSTORAGE_VALUES = {
     timestamp: window.localStorage.getItem(LOCALSTORAGE_KEYS.timestamp),
 }
 
+function hasTokenExpired() {
+    const { accessToken, timestamp, expireTime } = LOCALSTORAGE_VALUES;
+    if (!accessToken || !timestamp) { return false };
+    const millisecondsElapsed = Data.now() - Number(timestamp);
+    return (millisecondsElapsed/1000) > Number(expireTime);
+}
+
+
 const getAccessToken = () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -22,26 +30,26 @@ const getAccessToken = () => {
 
     // If there's an error OR the token in localStorage has expired, refresh the token
     if (hasError || hasTokenExpired() || LOCALSTORAGE_VALUES.accessToken === 'undefined') {
-      refreshToken();
+        refreshToken();
     }
-  
+
     // If there is a valid access token in localStorage, use that
     if (LOCALSTORAGE_VALUES.accessToken && LOCALSTORAGE_VALUES.accessToken !== 'undefined') {
-      return LOCALSTORAGE_VALUES.accessToken;
+        return LOCALSTORAGE_VALUES.accessToken;
     }
-  
+
     // If there is a token in the URL query params, user is logging in for the first time
     if (queryParams[LOCALSTORAGE_KEYS.accessToken]) {
-      // Store the query params in localStorage
-      for (const property in queryParams) {
-        window.localStorage.setItem(property, queryParams[property]);
-      }
-      // Set timestamp
-      window.localStorage.setItem(LOCALSTORAGE_KEYS.timestamp, Date.now());
-      // Return access token from query params
-      return queryParams[LOCALSTORAGE_KEYS.accessToken];
+        // Store the query params in localStorage
+        for (const property in queryParams) {
+            window.localStorage.setItem(property, queryParams[property]);
+        }
+        // Set timestamp
+        window.localStorage.setItem(LOCALSTORAGE_KEYS.timestamp, Date.now());
+        // Return access token from query params
+        return queryParams[LOCALSTORAGE_KEYS.accessToken];
     }
-  
+
     return false;
     // return accessToken;
 
