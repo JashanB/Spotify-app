@@ -13,10 +13,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+       {!token ? (
         <a
           className="App-link"
           href="http://localhost:8000/login"
@@ -25,6 +22,9 @@ function App() {
         >
           Log in to spotify
         </a>
+       ) : (
+        <h1>Logged in!</h1>
+       )}
       </header>
     </div>
   );
