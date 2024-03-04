@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
-import { access_token } from './spotify';
+import { access_token, logout } from './spotify';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -23,7 +23,10 @@ function App() {
           Log in to spotify
         </a>
        ) : (
-        <h1>Logged in!</h1>
+        <div>
+          <h1>Logged in!</h1>
+          <button onClick={logout}>Log out</button>
+        </div>
        )}
       </header>
     </div>
