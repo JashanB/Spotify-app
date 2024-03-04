@@ -107,5 +107,5 @@ export const access_token = getAccessToken();
  * https://github.com/axios/axios#global-axios-defaults
  */
 axios.defaults.baseURL = 'https://api.spotify.com/v1';
-axios.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
+axios.defaults.headers['Authorization'] = `Bearer ${access_token}`;
 axios.defaults.headers['Content-Type'] = 'application/json';
