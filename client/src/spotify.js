@@ -21,6 +21,14 @@ function hasTokenExpired() {
     return (millisecondsElapsed / 1000) > Number(expireTime);
 }
 
+export function logout () {
+    for (const property in LOCALSTORAGE_KEYS) {
+        window.localStorage.removeItem(LOCALSTORAGE_KEYS[property]);
+    }
+    //Navigate to homepage
+    window.location = window.location.origin;
+};
+
 async function refreshToken() {
     try {
         // Logout if there's no refresh token stored or we've managed to get into a reload infinite loop
