@@ -15,7 +15,6 @@ function App() {
         const { data } = await getCurrentUserProfile();
         setProfile(state => data);
         console.log(data);
-  
     };
     catchErrors(fetchData());
   }, []);
