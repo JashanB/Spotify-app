@@ -1,7 +1,19 @@
-export default function Login () {
+import { logout } from '../spotify';
+
+export default function Login({ profile }) {
+
     return (
         <div>
-
+            <button onClick={logout}>Log Out</button>
+            {profile && (
+                <div>
+                    <h1>{profile.display_name}</h1>
+                    <p>{profile.followers.total} Followers</p>
+                    {profile.images.length && profile.images[0].url && (
+                        <img src={profile.images[0].url} alt="Avatar" />
+                    )}
+                </div>
+            )}
         </div>
     )
 }
