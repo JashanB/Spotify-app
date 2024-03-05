@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { access_token, logout, getCurrentUserProfile } from './spotify';
 import { catchErrors } from './utils';
+import Login from './pages';
 
 function App() {
   const [token, setToken] = useState(null);
