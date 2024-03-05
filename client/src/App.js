@@ -3,7 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
 } from 'react-router-dom';
 import { access_token, logout, getCurrentUserProfile } from './spotify';
@@ -33,7 +33,7 @@ function App() {
           </a>
         ) : (
           <Router>
-            <Switch>
+            <Routes>
               <Route path="/top-artists">
                 <h1>Top Artists</h1>
               </Route>
@@ -60,7 +60,7 @@ function App() {
                   )}
                 </>
               </Route>
-            </Switch>
+            </Routes>
           </Router>
         )}
       </header>
