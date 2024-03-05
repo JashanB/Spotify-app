@@ -39,6 +39,16 @@ function App() {
           <div>
             <h1>Logged in!</h1>
             <button onClick={logout}>Log out</button>
+            {profile && (
+              <div>
+                <h1>{profile.display_name}</h1>
+                <p>Followers: {profile.followers.total}</p>
+                {profile.images.length > 0 && profile.images[0].url && (
+                  <img src={profile.images[0].url} alt="avatar"></img>
+                )
+                }
+              </div>
+            )}
           </div>
         )}
       </header>
