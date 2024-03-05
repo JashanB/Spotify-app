@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import { access_token, logout, getCurrentUserProfile } from './spotify';
+import { catchErrors } from './utils';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -11,16 +12,12 @@ function App() {
     setToken(state => access_token);
 
     async function fetchData() {
-      try {
         const { data } = await getCurrentUserProfile();
         setProfile(state => data);
         console.log(data);
-      } catch (e) {
-        console.error(e)
-      }
+  
     };
-    fetchData();
-
+    catchErrors(fetchData());
   }, []);
 
   return (
