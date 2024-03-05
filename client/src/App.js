@@ -8,12 +8,12 @@ import {
 } from 'react-router-dom';
 import { access_token, logout, getCurrentUserProfile } from './spotify';
 import { catchErrors } from './utils';
-import Login from './pages';
-import Playlist from './pages';
-import Playlists from './pages';
-import Profile from './pages';
-import TopArtists from './pages';
-import TopTracks from './pages';
+import {Login} from './pages';
+import {Playlist} from './pages';
+import {Playlists} from './pages';
+import {Profile} from './pages';
+import {TopArtists} from './pages';
+import {TopTracks} from './pages';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -40,20 +40,27 @@ function App() {
         ) : (
           <Router>
             <Routes>
+              <Route path="/" element={<Home />} />
+
               <Route path="/top-artists">
-                <h1>Top Artists</h1>
+                {/* <TopArtists></TopArtists> */}
+                <></>
               </Route>
               <Route path="/top-tracks">
-                <h1>Top Tracks</h1>
+                {/* <h1>Top Tracks</h1> */}
+                <></>
               </Route>
               <Route path="/playlists/:id">
-                <h1>Playlist</h1>
+                {/* <h1>Playlist</h1> */}
+                <></>
               </Route>
               <Route path="/playlists">
-                <h1>Playlists</h1>
+                {/* <h1>Playlists</h1> */}
+                <></>
               </Route>
               <Route path="/">
-                <>
+                <Login></Login>
+                {/* <>
                   <button onClick={logout}>Log Out</button>
                   {profile && (
                     <div>
@@ -64,7 +71,7 @@ function App() {
                       )}
                     </div>
                   )}
-                </>
+                </> */}
               </Route>
             </Routes>
           </Router>
