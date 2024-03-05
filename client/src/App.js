@@ -40,26 +40,11 @@ function App() {
         ) : (
           <Router>
             <Routes>
-              <Route path="/" element={<Home />} />
-
-              <Route path="/top-artists">
-                {/* <TopArtists></TopArtists> */}
-                <></>
-              </Route>
-              <Route path="/top-tracks">
-                {/* <h1>Top Tracks</h1> */}
-                <></>
-              </Route>
-              <Route path="/playlists/:id">
-                {/* <h1>Playlist</h1> */}
-                <></>
-              </Route>
-              <Route path="/playlists">
-                {/* <h1>Playlists</h1> */}
-                <></>
-              </Route>
-              <Route path="/">
-                <Login></Login>
+              <Route path="/top-artists" element={<TopArtists />}/>
+              <Route path="/top-tracks" element={<TopTracks />}/>
+              <Route path="/playlists/:id" element={<Playlist />}/>
+              <Route path="/playlists" element={<Playlists />}/>
+              <Route path="/" element={<Login />}/>
                 {/* <>
                   <button onClick={logout}>Log Out</button>
                   {profile && (
@@ -72,7 +57,6 @@ function App() {
                     </div>
                   )}
                 </> */}
-              </Route>
             </Routes>
           </Router>
         )}
