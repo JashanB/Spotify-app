@@ -9,6 +9,11 @@ import {
 import { access_token, logout, getCurrentUserProfile } from './spotify';
 import { catchErrors } from './utils';
 import Login from './pages';
+import Playlist from './pages';
+import Playlists from './pages';
+import Profile from './pages';
+import TopArtists from './pages';
+import TopTracks from './pages';
 
 function App() {
   const [token, setToken] = useState(null);
