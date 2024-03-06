@@ -26,7 +26,7 @@ function App() {
         setProfile(state => data);
         console.log(data);
     };
-    catchErrors(fetchData());
+    if (access_token) {catchErrors(fetchData())};
   }, []);
 
   return (
