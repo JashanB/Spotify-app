@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled, { createGlobalStyle } from 'styled-components/macro';
 import { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
@@ -13,6 +13,25 @@ import {Playlists} from './pages';
 import {Profile} from './pages';
 import {TopArtists} from './pages';
 import {TopTracks} from './pages';
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    box-sizing: border-box;
+  }
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    color: white;
+  }
+`;
 
 function App() {
   const [token, setToken] = useState(null);
@@ -31,6 +50,7 @@ function App() {
 
   return (
     <div className="App">
+      <GlobalStyle/>
       <header className="App-header">
           <Router>
             <Routes>
