@@ -1,21 +1,24 @@
 import { logout } from '../spotify';
 import styled from 'styled-components/macro';
+import { Link } from 'react-router-dom';
+
+const StyledLoginButton = styled(Link)`
+background-color:green;
+color: white;
+padding: 10px 20px;
+margin: 20px auto;
+border-radius: 30px;
+display: inline-block;
+`
 
 export default function Login(props) {
-
-    const StyledLoginButton = styled.a`
-    background-color:green;
-    color: white;
-    padding: 10px 20px;
-    margin: 20px auto;
-    border-radius: 30px;
-    display: inline-block;
-    `
 
     return (
         <div>
             {!props.token ? (
-                <StyledLoginButton href="/login">Log in to Spotify</StyledLoginButton>
+                <StyledLoginButton to="http://localhost:8000/login">Log in to Spotify</StyledLoginButton>
+                // <Link to="http://localhost:8000/login">Log in to Spotify</Link>
+
             ) : (
                 <div>
                     <button onClick={logout}>Log Out</button>
