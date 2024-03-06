@@ -10,7 +10,7 @@ const StyledLoginContainer = styled.main`
   height: 100vh;
 `;
 
-const StyledLoginButton = styled.a`
+const StyledLoginButton = styled(Link)`
   display: inline-block;
   background-color: var(--green);
   color: var(--white);
