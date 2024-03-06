@@ -5,6 +5,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
+import { GlobalStyle } from './styles';
 import { access_token, getCurrentUserProfile } from './spotify';
 import { catchErrors } from './utils';
 import {Login} from './pages';
@@ -13,34 +14,6 @@ import {Playlists} from './pages';
 import {Profile} from './pages';
 import {TopArtists} from './pages';
 import {TopTracks} from './pages';
-
-const GlobalStyle = createGlobalStyle`
-  :root {
-    --black: #121212;
-    --green: #1DB954;
-    --white: #ffffff;
-
-    --font: 'Circular Std', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  }
-
-  html {
-    box-sizing: border-box;
-  }
-
-  *,
-  *:before,
-  *:after {
-    box-sizing: inherit;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--black);
-    color: var(--white);
-    font-family: var(--font);
-  }
-`;
 
 function App() {
   const [token, setToken] = useState(null);
