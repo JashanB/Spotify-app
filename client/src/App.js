@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import styled from 'styled-components/macro';
 import { useEffect, useState } from 'react';
 import {
@@ -6,7 +5,7 @@ import {
   Routes,
   Route,
 } from 'react-router-dom';
-import { access_token, logout, getCurrentUserProfile } from './spotify';
+import { access_token, getCurrentUserProfile } from './spotify';
 import { catchErrors } from './utils';
 import {Login} from './pages';
 import {Playlist} from './pages';
@@ -30,14 +29,6 @@ function App() {
     catchErrors(fetchData());
   }, []);
 
-  const StyledLoginButton = styled.a`
-  background-color:green;
-  color: white;
-  padding: 10px 20px;
-  margin: 20px auto;
-  border-radius: 30px;
-  display: inline-block;
-  `
   return (
     <div className="App">
       <header className="App-header">
