@@ -2,14 +2,14 @@ import { logout } from '../spotify';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
-const StyledLoginButton = styled(Link)`
-background-color:green;
-color: white;
-padding: 10px 20px;
-margin: 20px auto;
-border-radius: 30px;
-display: inline-block;
-`
+const StyledLoginButton = styled.a`
+  background-color: var(--green);
+  color: var(--white);
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 30px;
+  display: inline-block;
+`;
 
 export default function Login(props) {
 
