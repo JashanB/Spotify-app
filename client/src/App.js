@@ -43,7 +43,7 @@ function App() {
     <div className="App">
       <header className="App-header">
       {!token ? (
-          <StyledLoginButton href="http://localhost:8000/login">Log in to Spotify</StyledLoginButton>
+          <StyledLoginButton href="/login">Log in to Spotify</StyledLoginButton>
         ) : (
           <Router>
             <Routes>
