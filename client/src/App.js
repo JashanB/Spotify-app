@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components/macro';
 import { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
@@ -30,13 +30,20 @@ function App() {
     catchErrors(fetchData());
   }, []);
 
+  const StyledLoginButton = styled.a`
+  background-color:green;
+  color: white;
+  padding: 10px 20px;
+  margin: 20px auto;
+  border-radius: 30px;
+  display: inline-block;
+  `
+
   return (
     <div className="App">
       <header className="App-header">
       {!token ? (
-          <a className="App-link" href="http://localhost:8000/login">
-            Log in to Spotify
-          </a>
+          <StyledLoginButton href="http://localhost:8000/login">Log in to Spotify</StyledLoginButton>
         ) : (
           <Router>
             <Routes>
