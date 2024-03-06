@@ -2,13 +2,28 @@ import { logout } from '../spotify';
 import styled from 'styled-components/macro';
 import { Link } from 'react-router-dom';
 
+const StyledLoginContainer = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
 const StyledLoginButton = styled.a`
+  display: inline-block;
   background-color: var(--green);
   color: var(--white);
-  padding: 10px 20px;
-  margin: 20px;
-  border-radius: 30px;
-  display: inline-block;
+  border-radius: var(--border-radius-pill);
+  font-weight: 700;
+  font-size: var(--fz-lg);
+  padding: var(--spacing-sm) var(--spacing-xl);
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+    filter: brightness(1.1);
+  }
 `;
 
 export default function Login(props) {
@@ -16,8 +31,9 @@ export default function Login(props) {
     return (
         <div>
             {!props.token ? (
-                <StyledLoginButton to="http://localhost:8000/login">Log in to Spotify</StyledLoginButton>
-                // <Link to="http://localhost:8000/login">Log in to Spotify</Link>
+                <StyledLoginContainer>
+                    <StyledLoginButton to="http://localhost:8000/login">Log in to Spotify</StyledLoginButton>
+                </StyledLoginContainer>
 
             ) : (
                 <div>
