@@ -38,23 +38,18 @@ function App() {
   border-radius: 30px;
   display: inline-block;
   `
-
   return (
     <div className="App">
       <header className="App-header">
-      {!token ? (
-          <StyledLoginButton href="/login">Log in to Spotify</StyledLoginButton>
-        ) : (
           <Router>
             <Routes>
               <Route path="/top-artists" element={<TopArtists />}/>
               <Route path="/top-tracks" element={<TopTracks />}/>
               <Route path="/playlists/:id" element={<Playlist />}/>
               <Route path="/playlists" element={<Playlists />}/>
-              <Route path="/" element={<Login profile={profile}/>}/>
+              <Route path="/" element={<Login token={token} profile={profile}/>}/>
             </Routes>
           </Router>
-        )}
       </header>
     </div>
   );
