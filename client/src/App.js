@@ -7,7 +7,7 @@ import {
   useLocation
 } from 'react-router-dom';
 import { GlobalStyle } from './styles';
-import { access_token, getCurrentUserProfile } from './spotify';
+import { access_token, getCurrentUserProfile, logout } from './spotify';
 import { catchErrors } from './utils';
 import {Login, Profile, Playlist, Playlists, TopArtists, TopTracks} from './pages';
 
@@ -44,12 +44,14 @@ function App() {
       <header className="App-header">
           <Router>
             <ScrollToTop/>
+            <button onClick={logout}>Logout</button>
             <Routes>
               <Route path="/top-artists" element={<TopArtists />}/>
               <Route path="/top-tracks" element={<TopTracks />}/>
               <Route path="/playlists/:id" element={<Playlist />}/>
               <Route path="/playlists" element={<Playlists />}/>
               <Route path="/" element={<Login token={token} profile={profile}/>}/>
+              <Route path="/" element={<Profile/>}/>
             </Routes>
           </Router>
       </header>
