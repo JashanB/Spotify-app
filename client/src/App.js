@@ -51,7 +51,7 @@ function App() {
               <Route path="/playlists/:id" element={<Playlist />}/>
               <Route path="/playlists" element={<Playlists />}/>
               <Route path="/" element={<Login token={token} profile={profile}/>}/>
-              <Route path="/" element={<Profile/>}/>
+              <Route path="/" element={<Profile profile={profile}/>}/>
             </Routes>
           </Router>
       </header>
