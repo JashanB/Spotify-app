@@ -7,7 +7,7 @@ import {
   useLocation
 } from 'react-router-dom';
 import { GlobalStyle } from './styles';
-import { access_token, getCurrentUserProfile, logout } from './spotify';
+import { access_token, getCurrentUserProfile, logout, getCurrentUserPlaylists } from './spotify';
 import { catchErrors } from './utils';
 import { Login, Profile, Playlist, Playlists, TopArtists, TopTracks } from './pages';
 
@@ -42,16 +42,23 @@ const StyledLogoutButton = styled.button`
 function App() {
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [playlists, setPlaylists] = useState(null)
 
   useEffect(() => {
     setToken(state => access_token);
 
     async function fetchData() {
-      const { data } = await getCurrentUserProfile();
-      setProfile(state => data);
-      console.log(data);
+      const userProfile = await getCurrentUserProfile();
+      setProfile(state => userProfile.data);
+      console.log(userProfile.data);
+
+      const userPlaylists = await getCurrentUserPlaylists();
+      setPlaylists(state => userPlaylists.data);
+      console.log(userPlaylists.data)
+
     };
     if (access_token) { catchErrors(fetchData()) };
+
   }, []);
 
   return (
