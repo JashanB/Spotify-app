@@ -9,7 +9,7 @@ import {
 import { GlobalStyle } from './styles';
 import { access_token, getCurrentUserProfile, logout } from './spotify';
 import { catchErrors } from './utils';
-import {Login, Profile, Playlist, Playlists, TopArtists, TopTracks} from './pages';
+import { Login, Profile, Playlist, Playlists, TopArtists, TopTracks } from './pages';
 
 // Scroll to top of page when changing routes
 // https://reactrouter.com/web/guides/scroll-restoration/scroll-to-top
@@ -31,29 +31,31 @@ function App() {
     setToken(state => access_token);
 
     async function fetchData() {
-        const { data } = await getCurrentUserProfile();
-        setProfile(state => data);
-        console.log(data);
+      const { data } = await getCurrentUserProfile();
+      setProfile(state => data);
+      console.log(data);
     };
-    if (access_token) {catchErrors(fetchData())};
+    if (access_token) { catchErrors(fetchData()) };
   }, []);
 
   return (
     <div className="App">
-      <GlobalStyle/>
+      <GlobalStyle />
       <header className="App-header">
-          <Router>
-            <ScrollToTop/>
-            <button onClick={logout}>Logout</button>
-            <Routes>
-              <Route path="/top-artists" element={<TopArtists />}/>
-              <Route path="/top-tracks" element={<TopTracks />}/>
-              <Route path="/playlists/:id" element={<Playlist />}/>
-              <Route path="/playlists" element={<Playlists />}/>
-              <Route path="/" element={<Login token={token} profile={profile}/>}/>
-              <Route path="/" element={<Profile profile={profile}/>}/>
-            </Routes>
-          </Router>
+        <Router>
+          <ScrollToTop />
+          {token && <button onClick={logout}>Logout</button>}
+          <Routes>
+            <Route path="/top-artists" element={<TopArtists />} />
+            <Route path="/top-tracks" element={<TopTracks />} />
+            <Route path="/playlists/:id" element={<Playlist />} />
+            <Route path="/playlists" element={<Playlists />} />
+            {!token ? (<Route path="/" element={<Login token={token} profile={profile} />} />
+            ) : (<Route path="/" element={<Profile profile={profile} />} />)}
+            {/* <Route path="/" element={<Login token={token} profile={profile}/>}/>
+              <Route path="/" element={<Profile profile={profile}/>}/> */}
+          </Routes>
+        </Router>
       </header>
     </div>
   );
