@@ -1,19 +1,6 @@
-import { useState, useEffect } from 'react';
-import { catchErrors } from '../utils';
-import { getCurrentUserProfile } from '../spotify';
 import { StyledHeader } from '../styles';
 
 const Profile = ({ profile }) => {
-    //   const [profile, setProfile] = useState(null);
-
-    //   useEffect(() => {
-    //     const fetchData = async () => {
-    //       const { data } = await getCurrentUserProfile();
-    //       setProfile(state => data);
-    //     };
-
-    //     catchErrors(fetchData());
-    //   }, []);
 
     return (
         <>
