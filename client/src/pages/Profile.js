@@ -1,4 +1,5 @@
 import { StyledHeader } from '../styles';
+import { ArtistsGrid } from '../components/ArtistsGrid';
 
 const Profile = ({ profile, playlists }) => {
 
