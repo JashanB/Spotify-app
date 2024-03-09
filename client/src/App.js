@@ -79,7 +79,7 @@ function App() {
           <ScrollToTop />
           {token && <StyledLogoutButton onClick={logout}>Logout</StyledLogoutButton>}
           <Routes>
-            <Route path="/top-artists" element={<TopArtists />} />
+            <Route path="/top-artists" element={<TopArtists topArtists={topArtists} />} />
             <Route path="/top-tracks" element={<TopTracks />} />
             <Route path="/playlists/:id" element={<Playlist />} />
             <Route path="/playlists" element={<Playlists />} />
