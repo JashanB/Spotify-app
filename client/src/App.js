@@ -7,7 +7,7 @@ import {
   useLocation
 } from 'react-router-dom';
 import { GlobalStyle } from './styles';
-import { access_token, getCurrentUserProfile, logout, getCurrentUserPlaylists } from './spotify';
+import { access_token, getCurrentUserProfile, logout, getCurrentUserPlaylists, getTopArtists } from './spotify';
 import { catchErrors } from './utils';
 import { Login, Profile, Playlist, Playlists, TopArtists, TopTracks } from './pages';
 
@@ -43,6 +43,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [profile, setProfile] = useState(null);
   const [playlists, setPlaylists] = useState(null)
+  const [topArtists, setTopArtists] = useState(null);
 
   useEffect(() => {
     setToken(state => access_token);
@@ -55,6 +56,10 @@ function App() {
       const userPlaylists = await getCurrentUserPlaylists();
       setPlaylists(state => userPlaylists.data);
       console.log(userPlaylists.data)
+
+      const usersTopArtists = await getTopArtists();
+      setTopArtists(state => usersTopArtists.data);
+      console.log(usersTopArtists.data)
 
     };
     if (access_token) { catchErrors(fetchData()) };
