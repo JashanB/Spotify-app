@@ -42,6 +42,7 @@ export default function TopTracks({ topTracks }) {
                         setActiveState={setActiveState}
                         setActiveRange={setActiveRange}
                         tracksObj={tracksObj}
+                        parent="tracks"
                     />
                     <TrackList tracks={activeRange && activeRange.slice(0, 10)} />
                 </SectionWrapper>

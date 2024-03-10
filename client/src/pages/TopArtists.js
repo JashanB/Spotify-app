@@ -41,6 +41,7 @@ export default function TopArtists({ topArtists }) {
                         setActiveState={setActiveState}
                         setActiveRange={setActiveRange}
                         artistsObj={artistsObj}
+                        parent="artists"
                     />
                     <ArtistsGrid artists={activeRange && activeRange.slice(0, 10)} />
                 </SectionWrapper>
