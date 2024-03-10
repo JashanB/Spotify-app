@@ -1,4 +1,4 @@
-import { SectionWrapper, ArtistsGrid } from "../components"
+import { SectionWrapper, ArtistsGrid, TimeRangeButtons } from "../components"
 import { useState, useEffect } from "react"
 import { getTopArtists } from "../spotify";
 import { catchErrors } from '../utils';
@@ -39,17 +39,12 @@ export default function TopArtists({ topArtists }) {
 
     return (
         <main>
-            <ul>
-                <li>
-                    <button className={activestate === 'short_term' ? 'active' : ''} onClick={() => changeActiveRange('short_term')} >This Month</button>
-                </li>
-                <li>
-                    <button className={activestate === 'medium_term' ? 'active' : ''} onClick={() => changeActiveRange('medium_term')} >Last 6 Months</button>
-                </li>
-                <li>
-                    <button className={activestate === 'long_term' ? 'active' : ''} onClick={() => changeActiveRange('long_term')} >All Time</button>
-                </li>
-            </ul>
+            <TimeRangeButtons 
+            activestate={activestate}
+            setActiveState={setActiveState}
+            setActiveRange={setActiveRange}
+            artistsObj={artistsObj}
+            />
             {topArtists && (
                 <SectionWrapper title="Top Artists" breadcrumb="true">
                     <ArtistsGrid artists={activeRange && activeRange.slice(0, 10)} />
