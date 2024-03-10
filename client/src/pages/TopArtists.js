@@ -13,7 +13,6 @@ export default function TopArtists({ topArtists }) {
 
     useEffect(() => {
         if (topArtists && topArtists.items && topArtists.items.length > 1) {
-            // console.log('setting top artists')
             setActiveRange(state => topArtists.items);
             setArtistsObj(state => ({
                 ...state,
@@ -23,29 +22,18 @@ export default function TopArtists({ topArtists }) {
         async function fetchArtists() {
             const mediumTermTopArtists = await getTopArtists('medium_term');
             const longTermTopArtists = await getTopArtists('long_term');
-            // console.log(mediumTermTopArtists)
-            // console.log(longTermTopArtists)
             setArtistsObj(state => ({
                 ...state,
                 'medium_term': mediumTermTopArtists.data.items,
                 'long_term': longTermTopArtists.data.items
             }))
-            // console.log('setting artists obj')
-            // console.log({artistsObj})
-
         }
-        if (topArtists) {
-            // console.log('calling fetch art')
-            catchErrors(fetchArtists())
-        };
+        if (topArtists) {catchErrors(fetchArtists())};
     }, [topArtists])
 
     function changeActiveRange (range) {
-        console.log('range', range)
         setActiveRange(state => artistsObj[range])
     }
-    // console.log(artistsObj)
-    // console.log('active range', activeRange)
 
     return (
         <main>
