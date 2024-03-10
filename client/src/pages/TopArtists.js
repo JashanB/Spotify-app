@@ -32,11 +32,6 @@ export default function TopArtists({ topArtists }) {
         if (topArtists) { catchErrors(fetchArtists()) };
     }, [topArtists])
 
-    function changeActiveRange(range) {
-        setActiveState(state => range);
-        setActiveRange(state => artistsObj[range])
-    }
-
     return (
         <main>
             <TimeRangeButtons 
