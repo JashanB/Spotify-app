@@ -5,6 +5,7 @@ import { catchErrors } from '../utils';
 
 export default function TopArtists({ topArtists }) {
     const [activeRange, setActiveRange] = useState(null);
+    const [activestate, setActiveState] = useState('short_term');
     const [artistsObj, setArtistsObj] = useState({
         'short_term': [],
         'medium_term': [],
@@ -28,19 +29,26 @@ export default function TopArtists({ topArtists }) {
                 'long_term': longTermTopArtists.data.items
             }))
         }
-        if (topArtists) {catchErrors(fetchArtists())};
+        if (topArtists) { catchErrors(fetchArtists()) };
     }, [topArtists])
 
-    function changeActiveRange (range) {
+    function changeActiveRange(range) {
+        setActiveState(state => range);
         setActiveRange(state => artistsObj[range])
     }
 
     return (
         <main>
             <ul>
-                <li><button onClick={() => changeActiveRange('short_term')} >This Month</button></li>
-                <li><button onClick={() => changeActiveRange('medium_term')} >Last 6 Months</button></li>
-                <li><button onClick={() => changeActiveRange('long_term')} >All Time</button></li>
+                <li>
+                    <button className={activestate === 'short_term' ? 'active' : ''} onClick={() => changeActiveRange('short_term')} >This Month</button>
+                </li>
+                <li>
+                    <button className={activestate === 'medium_term' ? 'active' : ''} onClick={() => changeActiveRange('medium_term')} >Last 6 Months</button>
+                </li>
+                <li>
+                    <button className={activestate === 'long_term' ? 'active' : ''} onClick={() => changeActiveRange('long_term')} >All Time</button>
+                </li>
             </ul>
             {topArtists && (
                 <SectionWrapper title="Top Artists" breadcrumb="true">
