@@ -4,9 +4,8 @@ export default function TimeRangeButtons (props) {
 
     function changeActiveRange(range) {
         props.setActiveState(state => range);
-        props.setActiveRange(state => props.artistsObj[range])
+        props.parent === 'artists' ? props.setActiveRange(state => props.artistsObj[range]) : props.setActiveRange(state => props.tracksObj[range])
     }
-
     return (
         <StyledRangeButtons>
             <li>
