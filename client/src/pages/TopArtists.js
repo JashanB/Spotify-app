@@ -4,7 +4,7 @@ import { getTopArtists } from "../spotify";
 import { catchErrors } from '../utils';
 
 export default function TopArtists({ topArtists }) {
-    const [activeRage, setActiveRange] = useState(null);
+    const [activeRange, setActiveRange] = useState(null);
     const [artistsObj, setArtistsObj] = useState({
         'short_term': [],
         'medium_term': [],
@@ -45,7 +45,7 @@ export default function TopArtists({ topArtists }) {
         setActiveRange(state => artistsObj[range])
     }
     // console.log(artistsObj)
-    // console.log('active range', activeRage)
+    // console.log('active range', activeRange)
 
     return (
         <main>
@@ -56,7 +56,7 @@ export default function TopArtists({ topArtists }) {
             </ul>
             {topArtists && (
                 <SectionWrapper title="Top Artists" breadcrumb="true">
-                    <ArtistsGrid artists={topArtists.items.slice(0, 10)} />
+                    <ArtistsGrid artists={activeRange && activeRange.slice(0, 10)} />
                 </SectionWrapper>
             )}
         </main>
