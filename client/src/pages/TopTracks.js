@@ -44,7 +44,7 @@ export default function TopTracks({ topTracks }) {
                         tracksObj={tracksObj}
                         parent="tracks"
                     />
-                    <TrackList tracks={activeRange && activeRange.slice(0, 10)} />
+                    <TrackList tracks={activeRange} />
                 </SectionWrapper>
             )}
         </main>
