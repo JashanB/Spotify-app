@@ -34,14 +34,14 @@ export default function TopArtists({ topArtists }) {
 
     return (
         <main>
-            <TimeRangeButtons 
-            activestate={activestate}
-            setActiveState={setActiveState}
-            setActiveRange={setActiveRange}
-            artistsObj={artistsObj}
-            />
             {topArtists && (
                 <SectionWrapper title="Top Artists" breadcrumb="true">
+                    <TimeRangeButtons
+                        activestate={activestate}
+                        setActiveState={setActiveState}
+                        setActiveRange={setActiveRange}
+                        artistsObj={artistsObj}
+                    />
                     <ArtistsGrid artists={activeRange && activeRange.slice(0, 10)} />
                 </SectionWrapper>
             )}

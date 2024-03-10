@@ -1,3 +1,5 @@
+import { StyledRangeButtons } from '../styles';
+
 export default function TimeRangeButtons (props) {
 
     function changeActiveRange(range) {
@@ -6,7 +8,7 @@ export default function TimeRangeButtons (props) {
     }
 
     return (
-        <ul>
+        <StyledRangeButtons>
             <li>
                 <button className={props.activestate === 'short_term' ? 'active' : ''} onClick={() => changeActiveRange('short_term')} >This Month</button>
             </li>
@@ -16,6 +18,6 @@ export default function TimeRangeButtons (props) {
             <li>
                 <button className={props.activestate === 'long_term' ? 'active' : ''} onClick={() => changeActiveRange('long_term')} >All Time</button>
             </li>
-        </ul>
+        </StyledRangeButtons>
     )
 }
