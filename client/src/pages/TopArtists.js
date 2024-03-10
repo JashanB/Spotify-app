@@ -14,6 +14,7 @@ export default function TopArtists({ topArtists }) {
     useEffect(() => {
         if (topArtists && topArtists.items && topArtists.items.length > 1) {
             // console.log('setting top artists')
+            setActiveRange(state => topArtists.items);
             setArtistsObj(state => ({
                 ...state,
                 'short_term': topArtists.items
@@ -37,20 +38,21 @@ export default function TopArtists({ topArtists }) {
             // console.log('calling fetch art')
             catchErrors(fetchArtists())
         };
-    }, [])
-    //currently fetching short range artists
-    //want to fetch medium and long term 
-    //can fetch all in background, or fetch when clicked
-    //set active range array to artists when needed
-    //make obj with artists 
-    console.log(artistsObj)
+    }, [topArtists])
+
+    function changeActiveRange (range) {
+        console.log('range', range)
+        setActiveRange(state => artistsObj[range])
+    }
+    // console.log(artistsObj)
+    // console.log('active range', activeRage)
 
     return (
         <main>
             <ul>
-                <li><button >This Month</button></li>
-                <li><button >Last 6 Months</button></li>
-                <li><button >All Time</button></li>
+                <li><button onClick={() => changeActiveRange('short_term')} >This Month</button></li>
+                <li><button onClick={() => changeActiveRange('medium_term')} >Last 6 Months</button></li>
+                <li><button onClick={() => changeActiveRange('long_term')} >All Time</button></li>
             </ul>
             {topArtists && (
                 <SectionWrapper title="Top Artists" breadcrumb="true">
