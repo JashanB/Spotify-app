@@ -80,7 +80,7 @@ function App() {
           {token && <StyledLogoutButton onClick={logout}>Logout</StyledLogoutButton>}
           <Routes>
             <Route path="/top-artists" element={<TopArtists topArtists={topArtists} />} />
-            <Route path="/top-tracks" element={<TopTracks />} />
+            <Route path="/top-tracks" element={<TopTracks topTracks={topTracks}/>} />
             <Route path="/playlists/:id" element={<Playlist />} />
             <Route path="/playlists" element={<Playlists />} />
             {!token ? (<Route path="/" element={<Login token={token} profile={profile} />} />
