@@ -8,35 +8,29 @@ export default function Playlists({ playlists }) {
     const [currentPlaylistData, setCurrentPlaylistData] = useState(null);
 
     useEffect(() => {
-        if (playlists) {
+        if (playlists && playlistArray && playlistArray.length === 0) {
             setPlaylistArray(state => playlists.items);
             setCurrentPlaylistData(state => playlists);
         };
     }, [playlists]);
 
-    if (playlists) {console.log('next', playlists.next)}
-
     useEffect(() => {
         if (!playlists) { return }
         const fetchMoreData = async () => {
-            if (currentPlaylistData.next) {
-                console.log('next', currentPlaylistData.next)
-
+            if (currentPlaylistData && currentPlaylistData.next) {
                 const {data} = await axios.get(currentPlaylistData.next);
                 setCurrentPlaylistData(state => data);
-                setPlaylistArray(state => [...state, ...currentPlaylistData.items], )
+                setPlaylistArray(state => [...state, ...data.items], )
             }
         }
         catchErrors(fetchMoreData());
     }, [currentPlaylistData])
 
-    console.log(playlistArray)
-
     return (
         <main>
             <SectionWrapper title="Public Playlists" breadcrumb={true}>
                 {playlists && (
-                    <PlaylistsGrid playlists={playlistArray.length > 1 && playlistArray} />
+                    <PlaylistsGrid playlists={playlistArray.length && playlistArray} />
                 )}
             </SectionWrapper>
         </main>
