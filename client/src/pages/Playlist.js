@@ -24,23 +24,22 @@ export default function Playlist() {
         catchErrors(fetchData());
     }, [id]);
     // console.log(playlist)
-
+    console.log('old data', playlist)
     // When tracksData updates, compile arrays of tracks and audioFeatures
     useEffect(() => {
         if (!playlist) { return }
         const fetchMoreData = async () => {
             if (tracksData && tracksData.next) {
-                console.log(tracksData.next)
                 const {data} = await axios.get(tracksData.next);
-                
-                setTracksData(state => data.tracks);
-                data.tracks && data.tracks.items && setTracksArray(state => [...state, ...data.tracks.items], )
+                console.log('new data', data)
+                setTracksData(state => data);
+                if  (data.items) {setTracksArray(state => [...state, ...data.items] )};
             }
         }
         catchErrors(fetchMoreData());
     }, [tracksData]);
 
-    console.log(tracksArray)
+    if (tracksArray) {console.log(tracksArray.length)}
     // const tracksForTracklist = useMemo(() => {
     //     if (!tracks) {
     //         return;
