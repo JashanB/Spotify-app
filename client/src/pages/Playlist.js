@@ -1,6 +1,6 @@
-import { SectionWrapper } from "../components"
+import { SectionWrapper, TrackList } from "../components"
 import { getPlaylistById } from "../spotify"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from 'react';
 import { useParams } from "react-router-dom"
 import { StyledHeader } from "../styles"
 import { catchErrors } from "../utils"
@@ -10,72 +10,75 @@ export default function Playlist() {
     const { id } = useParams();
     const [playlist, setPlaylist] = useState(null);
     const [tracksData, setTracksData] = useState(null);
-    const [tracks, setTracks] = useState(null);
-  
+    // const [tracks, setTracks] = useState(null);
+    const [tracksArray, setTracksArray] = useState([]);
+
     useEffect(() => {
-      const fetchData = async () => {
-        const { data } = await getPlaylistById(id);
-        setPlaylist(data);
-        setTracksData(data.tracks);
-      };
-  
-      catchErrors(fetchData());
+        const fetchData = async () => {
+            const { data } = await getPlaylistById(id);
+            setPlaylist(data);
+            setTracksData(data.tracks);
+            setTracksArray(data.tracks.items)
+        };
+
+        catchErrors(fetchData());
     }, [id]);
-  
+    // console.log(playlist)
+
     // When tracksData updates, compile arrays of tracks and audioFeatures
     useEffect(() => {
-      if (!tracksData) {
-        return;
-      }
-  
-      // When tracksData updates, check if there are more tracks to fetch
-      // then update the state variable
-      const fetchMoreData = async () => {
-        if (tracksData.next) {
-          const { data } = await axios.get(tracksData.next);
-          setTracksData(data);
+        if (!playlist) { return }
+        const fetchMoreData = async () => {
+            if (tracksData && tracksData.next) {
+                console.log(tracksData.next)
+                const {data} = await axios.get(tracksData.next);
+                
+                setTracksData(state => data.tracks);
+                setTracksArray(state => [...state, ...data.tracks.items], )
+            }
         }
-      };
-  
-      setTracks(tracks => ([
-        ...tracks ? tracks : [],
-        ...tracksData.items
-      ]));
-  
-      catchErrors(fetchMoreData());
+        catchErrors(fetchMoreData());
     }, [tracksData]);
-  
+
+    console.log(tracksArray)
+    // const tracksForTracklist = useMemo(() => {
+    //     if (!tracks) {
+    //         return;
+    //     }
+    //     return tracks.map(({ track }) => track);
+    // }, [tracks]);
+
     return (
-      <>
-        {playlist && (
-          <>
-            <StyledHeader>
-              <div className="header__inner">
-                {playlist.images.length && playlist.images[0].url && (
-                  <img className="header__img" src={playlist.images[0].url} alt="Playlist Artwork"/>
-                )}
-                <div>
-                  <div className="header__overline">Playlist</div>
-                  <h1 className="header__name">{playlist.name}</h1>
-                  <p className="header__meta">
-                    {playlist.followers.total ? (
-                      <span>{playlist.followers.total} {`follower${playlist.followers.total !== 1 ? 's' : ''}`}</span>
-                    ) : null}
-                    <span>{playlist.tracks.total} {`song${playlist.tracks.total !== 1 ? 's' : ''}`}</span>
-                  </p>
-                </div>
-              </div>
-            </StyledHeader>
-  
-            <main>
-              <SectionWrapper title="Playlist" breadcrumb={true}>
-                {tracks && (
-                  <TrackList tracks={tracks} />
-                )}
-              </SectionWrapper>
-            </main>
-          </>
-        )}
-      </>
+        <>
+            {playlist && (
+                <>
+                    <StyledHeader breadcrumb="true">
+                        <div className="header__inner">
+                            {playlist.images.length && playlist.images[0].url && (
+                                <img className="header__img" src={playlist.images[0].url} alt="Playlist Artwork" />
+                            )}
+                            <div>
+                                <div className="header__overline">Playlist</div>
+                                <h1 className="header__name">{playlist.name}</h1>
+                                <p className="header__meta">
+                                    {playlist.followers.total ? (
+                                        <span>{playlist.followers.total} {`follower${playlist.followers.total !== 1 ? 's' : ''}`}</span>
+                                    ) : null}
+                                    <span>{playlist.tracks.total} {`song${playlist.tracks.total !== 1 ? 's' : ''}`}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </StyledHeader>
+{/* 
+                    <main>
+                        <SectionWrapper title="Playlist" breadcrumb={true}>
+                            {tracksForTracklist && (
+                                <TrackList tracks={tracksForTracklist} />
+                            )}
+                        </SectionWrapper>
+                    </main> */}
+                </>
+            )}
+        </>
     )
 }
