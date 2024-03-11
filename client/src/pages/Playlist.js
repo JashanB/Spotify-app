@@ -34,7 +34,7 @@ export default function Playlist() {
                 const {data} = await axios.get(tracksData.next);
                 
                 setTracksData(state => data.tracks);
-                setTracksArray(state => [...state, ...data.tracks.items], )
+                data.tracks && data.tracks.items && setTracksArray(state => [...state, ...data.tracks.items], )
             }
         }
         catchErrors(fetchMoreData());
