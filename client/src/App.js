@@ -82,7 +82,7 @@ function App() {
             <Route path="/top-artists" element={<TopArtists topArtists={topArtists} />} />
             <Route path="/top-tracks" element={<TopTracks topTracks={topTracks}/>} />
             <Route path="/playlists/:id" element={<Playlist />} />
-            <Route path="/playlists" element={<Playlists playlists={playlists}/>} />
+            <Route path="/playlists" element={<Playlists playlists={playlists} setPlaylists={setPlaylists}/> } />
             {!token ? (<Route path="/" element={<Login token={token} profile={profile} />} />
             ) : (<Route path="/" element={<Profile
               profile={profile}
