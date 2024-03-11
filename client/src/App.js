@@ -52,7 +52,7 @@ function App() {
     async function fetchData() {
       const userProfile = await getCurrentUserProfile();
       setProfile(state => userProfile.data);
-      console.log(userProfile.data);
+      // console.log(userProfile.data);
 
       const userPlaylists = await getCurrentUserPlaylists();
       setPlaylists(state => userPlaylists.data);
@@ -60,11 +60,11 @@ function App() {
 
       const usersTopArtists = await getTopArtists();
       setTopArtists(state => usersTopArtists.data);
-      console.log(usersTopArtists.data)
+      // console.log(usersTopArtists.data)
 
       const usersTopTracks = await getTopTracks();
       setTopTracks(state => usersTopTracks.data);
-      console.log(usersTopTracks.data)
+      // console.log(usersTopTracks.data)
 
     };
     if (access_token) { catchErrors(fetchData()) };
