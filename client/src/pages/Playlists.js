@@ -3,34 +3,40 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { catchErrors } from '../utils';
 
-export default function Playlists({ playlists, setPlaylists }) {
+export default function Playlists({ playlists }) {
     const [playlistArray, setPlaylistArray] = useState([]);
+    const [currentPlaylistData, setCurrentPlaylistData] = useState(null);
 
     useEffect(() => {
-        if (playlists) {setPlaylistArray(state => playlists.items)};
+        if (playlists) {
+            setPlaylistArray(state => playlists.items);
+            setCurrentPlaylistData(state => playlists);
+        };
     }, [playlists]);
+
     if (playlists) {console.log('next', playlists.next)}
 
     useEffect(() => {
         if (!playlists) { return }
         const fetchMoreData = async () => {
-            if (playlists.next) {
-                console.log('next', playlists.next)
-                const {data} = await axios.get(playlists.next);
-                setPlaylists(state => data);
-                setPlaylistArray(state => [...state, ...playlists.items], )
+            if (currentPlaylistData.next) {
+                console.log('next', currentPlaylistData.next)
 
+                const {data} = await axios.get(currentPlaylistData.next);
+                setCurrentPlaylistData(state => data);
+                setPlaylistArray(state => [...state, ...currentPlaylistData.items], )
             }
         }
         catchErrors(fetchMoreData());
-    }, [playlists])
+    }, [currentPlaylistData])
+
     console.log(playlistArray)
 
     return (
         <main>
             <SectionWrapper title="Public Playlists" breadcrumb={true}>
                 {playlists && (
-                    <PlaylistsGrid playlists={playlists && playlists.items} />
+                    <PlaylistsGrid playlists={playlistArray.length > 1 && playlistArray} />
                 )}
             </SectionWrapper>
         </main>
