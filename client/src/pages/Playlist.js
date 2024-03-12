@@ -37,6 +37,12 @@ export default function Playlist() {
             }
         }
         catchErrors(fetchMoreData());
+
+        const fetchAudioFeatures = async () => {
+            const ids = tracksData.map(({track}) => track.id).
+            join(',');
+            
+        }
       
     }, [tracksData]);
     
