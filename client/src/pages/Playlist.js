@@ -10,29 +10,34 @@ export default function Playlist() {
     const { id } = useParams();
     const [playlist, setPlaylist] = useState(null);
     const [tracksData, setTracksData] = useState(null);
-    // const [tracks, setTracks] = useState(null);
     const [tracksArray, setTracksArray] = useState([]);
+    //make initial data state to save initial api call information - playlist
+
 
     useEffect(() => {
         const fetchData = async () => {
             const { data } = await getPlaylistById(id);
+            console.log('old data', data)
             setPlaylist(data);
+            //make copy of data to modify for fetch more data
             setTracksData(data.tracks);
-            setTracksArray(data.tracks.items)
+            //create array of tracks
+            if (data.tracks.items) {setTracksArray(data.tracks.items)};
         };
-
         catchErrors(fetchData());
     }, [id]);
-    // console.log(playlist)
-    console.log('old data', playlist)
-    // When tracksData updates, compile arrays of tracks and audioFeatures
+
     useEffect(() => {
         if (!playlist) { return }
         const fetchMoreData = async () => {
-            if (tracksData && tracksData.next) {
+            if (tracksData && tracksData.next && tracksArray && tracksArray.length < tracksData.total) {
+                console.log('tracks array', tracksArray.length)
+                console.log('total', tracksData.total)
+                console.log('i ran')
+                console.log(tracksData.next)
                 const {data} = await axios.get(tracksData.next);
-                console.log('new data', data)
-                setTracksData(state => data);
+                // console.log('new data', data)
+                setTracksData(data);
                 if  (data.items) {setTracksArray(state => [...state, ...data.items] )};
             }
         }
