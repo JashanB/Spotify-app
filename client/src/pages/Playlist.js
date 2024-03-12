@@ -47,15 +47,33 @@ export default function Playlist() {
                 ...data['audio_features']
             ]));
         }
+        catchErrors(fetchAudioFeatures());
 
     }, [tracksData]);
 
-    const tracksForTracklist = useMemo(() => {
-        if (!tracksArray) {
-            return;
-        }
-        return tracksArray.map(({ track }) => track);
-    }, [tracksArray]);
+    // Map over tracks and add audio_features property to each track
+  const tracksWithAudioFeatures = useMemo(() => {
+    if (!tracks || !audioFeatures) {
+      return null;
+    }
+
+    return tracks.map(({ track }) => {
+      const trackToAdd = track;
+
+      if (!track.audio_features) {
+        const audioFeaturesObj = audioFeatures.find(item => {
+          if (!item || !track) {
+            return null;
+          }
+          return item.id === track.id;
+        });
+
+        trackToAdd['audio_features'] = audioFeaturesObj;
+      }
+
+      return trackToAdd;
+    });
+  }, [tracks, audioFeatures]);
 
     return (
         <>
