@@ -1,5 +1,5 @@
 import { SectionWrapper, TrackList } from "../components"
-import { getPlaylistById } from "../spotify"
+import { getPlaylistById, getAudioFeaturesForTracks } from "../spotify"
 import { useState, useEffect, useMemo } from 'react';
 import { useParams } from "react-router-dom"
 import { StyledHeader } from "../styles"
@@ -11,6 +11,7 @@ export default function Playlist() {
     const [playlist, setPlaylist] = useState(null);
     const [tracksData, setTracksData] = useState(null);
     const [tracksArray, setTracksArray] = useState([]);
+    const [audioFeatures, setAudioFeatures] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
