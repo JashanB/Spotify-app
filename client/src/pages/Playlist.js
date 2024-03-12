@@ -20,7 +20,7 @@ export default function Playlist() {
             //make copy of data to modify for fetch more data
             setTracksData(data.tracks);
             //create array of tracks
-            if (data.tracks.items) {setTracksArray(data.tracks.items)};
+            if (data.tracks.items) { setTracksArray(data.tracks.items) };
         };
         catchErrors(fetchData());
     }, [id]);
@@ -29,7 +29,7 @@ export default function Playlist() {
         if (!playlist) { return }
         const fetchMoreData = async () => {
             if (tracksData && tracksData.next) {
-                const {data} = await axios.get(tracksData.next);
+                const { data } = await axios.get(tracksData.next);
                 if (data.items && tracksArray && tracksArray.length + data.items.length <= data.total) {
                     setTracksArray(state => [...state, ...data.items]);
                     setTracksData(data);
@@ -39,13 +39,17 @@ export default function Playlist() {
         catchErrors(fetchMoreData());
 
         const fetchAudioFeatures = async () => {
-            const ids = tracksData.map(({track}) => track.id).
-            join(',');
-            
+            const ids = tracksData.map(({ track }) => track.id).
+                join(',');
+            const { data } = await getAudioFeaturesForTracks(ids);
+            setAudioFeatures(audioFeatures => ([
+                ...audioFeatures ? audioFeatures : [],
+                ...data['audio_features']
+            ]));
         }
-      
+
     }, [tracksData]);
-    
+
     const tracksForTracklist = useMemo(() => {
         if (!tracksArray) {
             return;
