@@ -1,5 +1,5 @@
 import { StyledHeader } from '../styles';
-import { ArtistsGrid, SectionWrapper, TrackList, PlaylistsGrid } from '../components';
+import { ArtistsGrid, SectionWrapper, TrackList, PlaylistsGrid, Loader } from '../components';
 
 const Profile = ({ profile, playlists, topArtists, topTracks }) => {
 
@@ -28,7 +28,7 @@ const Profile = ({ profile, playlists, topArtists, topTracks }) => {
                     </StyledHeader>
                 </>
             )}
-            {topArtists && topTracks && playlists && (
+            {topArtists && topTracks && playlists ? (
                 <main>
                     <SectionWrapper title="Top artists this month" seeAllLink="/top-artists">
                         <ArtistsGrid artists={topArtists.items.slice(0, 10)} />
@@ -42,6 +42,8 @@ const Profile = ({ profile, playlists, topArtists, topTracks }) => {
                         <PlaylistsGrid playlists={playlists.items.slice(0, 10)} />
                     </SectionWrapper>
                 </main>
+            ): (
+                <Loader />
             )}
         </>
     )
