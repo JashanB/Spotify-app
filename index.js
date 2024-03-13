@@ -7,10 +7,10 @@ const path = require('path');
 const app = express();
 const cors = require('cors');
 
-const clientId = process.env.CLIENTID;
-const clientSecret = process.env.CLIENTSECRET;
-const redirectUrl = process.env.REDIRECT_URL;
-const FRONTEND_URI = process.env.FRONTEND_URI;
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:8000/callback';
+const FRONTEND_URI = process.env.FRONTEND_URI || 'http://localhost:3000';
 const PORT = process.env.PORT || 8000;
 
 app.use(cors());
@@ -35,9 +35,9 @@ app.get('/login', (req, res) => {
 
     const scope = ['user-read-private', 'user-read-email', 'user-top-read'].join(' ');
     const queryParams = querystring.stringify({
-        client_id: clientId,
+        client_id: CLIENT_ID,
         response_type: 'code',
-        redirect_uri: redirectUrl,
+        redirect_uri: REDIRECT_URI,
         state: state,
         scope: scope
     });
@@ -54,11 +54,11 @@ app.get('/callback', (req, res) => {
         data: querystring.stringify({
             grant_type: 'authorization_code',
             code: code,
-            redirect_uri: redirectUrl
+            redirect_uri: REDIRECT_URI
         }),
         headers: {
             'content-type': 'application/x-www-form-urlencoded',
-            Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+            Authorization: `Basic ${new Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
         },
     })
         .then(response => {
@@ -116,7 +116,7 @@ app.get('/refresh_token', (req, res) => {
         }),
         headers: {
             'content-type': 'application/x-www-form-urlencoded',
-            Authorization: `Basic ${new Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+            Authorization: `Basic ${new Buffer.from(`${CLIENT_ID}:${CLIENT_SECRET}`).toString('base64')}`,
         },
     })
         .then(response => {
