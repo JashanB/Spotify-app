@@ -1,4 +1,4 @@
-import { SectionWrapper, ArtistsGrid, TimeRangeButtons } from "../components"
+import { SectionWrapper, ArtistsGrid, TimeRangeButtons, Loader } from "../components"
 import { useState, useEffect } from "react"
 import { getTopArtists } from "../spotify";
 import { catchErrors } from '../utils';
@@ -34,7 +34,7 @@ export default function TopArtists({ topArtists }) {
 
     return (
         <main>
-            {topArtists && (
+            {topArtists ? (
                 <SectionWrapper title="Top Artists" breadcrumb="true">
                     <TimeRangeButtons
                         activestate={activestate}
@@ -45,7 +45,10 @@ export default function TopArtists({ topArtists }) {
                     />
                     <ArtistsGrid artists={activeRange && activeRange.slice(0, 10)} />
                 </SectionWrapper>
-            )}
+            ) :
+                (
+                    <Loader />
+                )}
         </main>
     )
 }
