@@ -143,8 +143,8 @@ export default function Playlist() {
                                     ))}
                                 </select>
                             </div>
-                            {tracksArray && (
-                                <TrackList tracks={tracksForTracklist} />
+                            {sortedTracks && (
+                                <TrackList tracks={sortedTracks} />
                             )}
                         </SectionWrapper>
                     </main>
