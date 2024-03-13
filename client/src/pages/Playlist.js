@@ -86,6 +86,24 @@ export default function Playlist() {
         });
     }, [tracksArray, audioFeatures]);
 
+    // Sort tracks by audio feature to be used in template
+    const sortedTracks = useMemo(() => {
+        if (!tracksWithAudioFeatures) {
+            return null;
+        }
+
+        return [...tracksWithAudioFeatures].sort((a, b) => {
+            const aFeatures = a['audio_features'];
+            const bFeatures = b['audio_features'];
+
+            if (!aFeatures || !bFeatures) {
+                return false;
+            }
+
+            return bFeatures[sortValue] - aFeatures[sortValue];
+        });
+    }, [sortValue, tracksWithAudioFeatures]);
+
     return (
         <>
             {playlist && (
