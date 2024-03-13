@@ -2,6 +2,7 @@ require('dotenv').config();
 const querystring = require('querystring');
 const express = require('express');
 const axios = require('axios');
+const path = require('path');
 const app = express();
 const cors = require('cors');
 
@@ -12,6 +13,9 @@ const FRONTEND_URI = process.env.FRONTEND_URI;
 const PORT = process.env.PORT || 8000;
 
 app.use(cors());
+
+// Priority serve any static files.
+app.use(express.static(path.resolve(__dirname, './client/build')));
 
 app.get('/', (req, res) => {
     // res.send("hello")
@@ -130,6 +134,11 @@ app.get('/refresh_token', (req, res) => {
             res.send(error);
         });
 });
+
+// All remaining requests return the React app, so it can handle routing.
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
+  });
 
 app.listen(PORT, () => {
     console.log(`Express app runnning at ${PORT}`)
