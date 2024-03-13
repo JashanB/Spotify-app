@@ -26,36 +26,44 @@ const StyledLoginButton = styled(Link)`
   }
 `;
 
+const LOGIN_URI =
+  process.env.NODE_ENV !== 'production'
+    ? 'http://localhost:8000/login'
+    : 'https://spotify-app.herokuapp.com/login';
+
+
 export default function Login(props) {
 
-    return (
-        <>
-         {!props.token && (
-                <StyledLoginContainer>
-                    <StyledLoginButton to="http://localhost:8000/login">Log in to Spotify</StyledLoginButton>
-                </StyledLoginContainer>
-         )}
-        </>
-        // <div>
-        //     {!props.token ? (
-        //         <StyledLoginContainer>
-        //             <StyledLoginButton to="http://localhost:8000/login">Log in to Spotify</StyledLoginButton>
-        //         </StyledLoginContainer>
+  return (
+    <>
+      {!props.token && (
+        <StyledLoginContainer>
+          <StyledLoginButton href={LOGIN_URI}>
+            Log in to Spotify
+          </StyledLoginButton>
+        </StyledLoginContainer>
+      )}
+    </>
+    // <div>
+    //     {!props.token ? (
+    //         <StyledLoginContainer>
+    //             <StyledLoginButton to="http://localhost:8000/login">Log in to Spotify</StyledLoginButton>
+    //         </StyledLoginContainer>
 
-        //     ) : (
-        //         <div>
-        //             <button onClick={logout}>Log Out</button>
-        //             {props.profile && (
-        //                 <div>
-        //                     <h1>{props.profile.display_name}</h1>
-        //                     <p>{props.profile.followers.total} Followers</p>
-        //                     {props.profile.images.length && props.profile.images[0].url && (
-        //                         <img src={props.profile.images[0].url} alt="Avatar" />
-        //                     )}
-        //                 </div>
-        //             )}
-        //         </div>
-        //     )}
-        // </div>
-    )
+    //     ) : (
+    //         <div>
+    //             <button onClick={logout}>Log Out</button>
+    //             {props.profile && (
+    //                 <div>
+    //                     <h1>{props.profile.display_name}</h1>
+    //                     <p>{props.profile.followers.total} Followers</p>
+    //                     {props.profile.images.length && props.profile.images[0].url && (
+    //                         <img src={props.profile.images[0].url} alt="Avatar" />
+    //                     )}
+    //                 </div>
+    //             )}
+    //         </div>
+    //     )}
+    // </div>
+  )
 }
