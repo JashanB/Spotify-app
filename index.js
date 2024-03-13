@@ -2,13 +2,15 @@ require('dotenv').config();
 const querystring = require('querystring');
 const express = require('express');
 const axios = require('axios');
-const port = 8000;
 const app = express();
 const cors = require('cors');
 
 const clientId = process.env.CLIENTID;
 const clientSecret = process.env.CLIENTSECRET;
 const redirectUrl = process.env.REDIRECT_URL;
+const FRONTEND_URI = process.env.FRONTEND_URI;
+const PORT = process.env.PORT || 8000;
+
 app.use(cors());
 
 app.get('/', (req, res) => {
@@ -72,7 +74,7 @@ app.get('/callback', (req, res) => {
                     refresh_token,
                     expires_in
                 });
-                res.redirect(`http://localhost:3000/?${queryParams}`);
+                res.redirect(`${FRONTEND_URI}?${queryParams}`);
                 //Use token to access profile
                 // axios.get('https://api.spotify.com/v1/me', {
                 //     headers: {
@@ -129,6 +131,6 @@ app.get('/refresh_token', (req, res) => {
         });
 });
 
-app.listen(port, () => {
-    console.log(`Express app runnning at ${port}`)
+app.listen(PORT, () => {
+    console.log(`Express app runnning at ${PORT}`)
 })
