@@ -2,6 +2,7 @@ require('dotenv').config();
 const querystring = require('querystring');
 const express = require('express');
 const axios = require('axios');
+//path for production
 const path = require('path');
 const app = express();
 const cors = require('cors');
@@ -16,15 +17,6 @@ app.use(cors());
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, './client/build')));
-
-app.get('/', (req, res) => {
-    // res.send("hello")
-    const data = {
-        name: 'Jashan',
-        isAwesome: true
-    }
-    res.json(data);
-})
 
 const generateRandomString = length => {
     let text = '';
