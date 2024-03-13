@@ -12,6 +12,8 @@ export default function Playlist() {
     const [tracksData, setTracksData] = useState(null);
     const [tracksArray, setTracksArray] = useState([]);
     const [audioFeatures, setAudioFeatures] = useState(null);
+    const [sortValue, setSortValue] = useState('');
+    const [sortOptions, setSortOptions] = useState(['danceability', 'tempo', 'energy']);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,29 +62,29 @@ export default function Playlist() {
         return tracksArray.map(({ track }) => track);
     }, [tracksArray]);
 
-      // Map over tracks and add audio_features property to each track
-  const tracksWithAudioFeatures = useMemo(() => {
-    if (!tracksArray || !audioFeatures) {
-      return null;
-    }
-
-    return tracksArray.map(({ track }) => {
-      const trackToAdd = track;
-
-      if (!track.audio_features) {
-        const audioFeaturesObj = audioFeatures.find(item => {
-          if (!item || !track) {
+    // Map over tracks and add audio_features property to each track
+    const tracksWithAudioFeatures = useMemo(() => {
+        if (!tracksArray || !audioFeatures) {
             return null;
-          }
-          return item.id === track.id;
+        }
+
+        return tracksArray.map(({ track }) => {
+            const trackToAdd = track;
+
+            if (!track.audio_features) {
+                const audioFeaturesObj = audioFeatures.find(item => {
+                    if (!item || !track) {
+                        return null;
+                    }
+                    return item.id === track.id;
+                });
+
+                trackToAdd['audio_features'] = audioFeaturesObj;
+            }
+
+            return trackToAdd;
         });
-
-        trackToAdd['audio_features'] = audioFeaturesObj;
-      }
-
-      return trackToAdd;
-    });
-  }, [tracksArray, audioFeatures]);
+    }, [tracksArray, audioFeatures]);
 
     return (
         <>
@@ -108,6 +110,21 @@ export default function Playlist() {
 
                     <main>
                         <SectionWrapper title="Playlist" breadcrumb={true}>
+                            <div>
+                                <label className="sr-only" htmlFor="order-select">Sort tracks</label>
+                                <select
+                                    name="track-order"
+                                    id="order-select"
+                                    onChange={e => setSortValue(e.target.value)}
+                                >
+                                    <option value="">Sort tracks</option>
+                                    {sortOptions.map((option, i) => (
+                                        <option value={option} key={i}>
+                                            {`${option.charAt(0).toUpperCase()}${option.slice(1)}`}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                             {tracksArray && (
                                 <TrackList tracks={tracksForTracklist} />
                             )}
