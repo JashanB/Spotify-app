@@ -10,7 +10,7 @@ const StyledLoginContainer = styled.main`
   height: 100vh;
 `;
 
-const StyledLoginButton = styled(Link)`
+const StyledLoginButton = styled.a`
   display: inline-block;
   background-color: var(--green);
   color: var(--white);
@@ -31,12 +31,12 @@ process.env.NODE_ENV !== 'production'
   : ' https://spotify-app-e9490d6b3f02.herokuapp.com/login';
 
 export default function Login(props) {
-  
+
   return (
     <>
       {!props.token && (
         <StyledLoginContainer>
-          <StyledLoginButton to={LOGIN_URI}>
+          <StyledLoginButton href={LOGIN_URI}>
             Log in to Spotify
           </StyledLoginButton>
         </StyledLoginContainer>
