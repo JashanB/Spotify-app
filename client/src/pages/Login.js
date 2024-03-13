@@ -29,9 +29,8 @@ const LOGIN_URI =
 process.env.NODE_ENV !== 'production'
   ? 'http://localhost:8000/login'
   : ' https://spotify-app-e9490d6b3f02.herokuapp.com/login';
-  
-export default function Login(props) {
 
+export default function Login(props) {
   return (
     <>
       {!props.token && (
