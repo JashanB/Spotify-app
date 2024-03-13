@@ -41,11 +41,9 @@ export default function Playlist() {
         catchErrors(fetchMoreData());
 
         const fetchAudioFeatures = async () => {
-            console.log(tracksData)
             const ids = tracksData.items.map(({ track }) => track.id).
                 join(',');
             const { data } = await getAudioFeaturesForTracks(ids);
-            console.log(data)
             setAudioFeatures(audioFeatures => ([
                 ...audioFeatures ? audioFeatures : [],
                 ...data['audio_features']
