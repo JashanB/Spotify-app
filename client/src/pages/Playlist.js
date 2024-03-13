@@ -1,4 +1,4 @@
-import { SectionWrapper, TrackList } from "../components"
+import { SectionWrapper, TrackList, Loader } from "../components"
 import { getPlaylistById, getAudioFeaturesForTracks } from "../spotify"
 import { useState, useEffect, useMemo } from 'react';
 import { useParams } from "react-router-dom"
@@ -104,7 +104,7 @@ export default function Playlist() {
 
     return (
         <>
-            {playlist && (
+            {playlist ? (
                 <>
                     <StyledHeader breadcrumb="true">
                         <div className="header__inner">
@@ -147,6 +147,8 @@ export default function Playlist() {
                         </SectionWrapper>
                     </main>
                 </>
+            ) : (
+                <Loader />
             )}
         </>
     )

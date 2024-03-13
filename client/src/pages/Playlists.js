@@ -1,4 +1,4 @@
-import { SectionWrapper, PlaylistsGrid } from "../components"
+import { SectionWrapper, PlaylistsGrid, Loader } from "../components"
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import { catchErrors } from '../utils';
@@ -18,9 +18,9 @@ export default function Playlists({ playlists }) {
         if (!playlists) { return }
         const fetchMoreData = async () => {
             if (currentPlaylistData && currentPlaylistData.next) {
-                const {data} = await axios.get(currentPlaylistData.next);
+                const { data } = await axios.get(currentPlaylistData.next);
                 setCurrentPlaylistData(state => data);
-                setPlaylistArray(state => [...state, ...data.items], )
+                setPlaylistArray(state => [...state, ...data.items],)
             }
         }
         catchErrors(fetchMoreData());
@@ -29,9 +29,12 @@ export default function Playlists({ playlists }) {
     return (
         <main>
             <SectionWrapper title="Public Playlists" breadcrumb={true}>
-                {playlists && (
+                {playlists ? (
                     <PlaylistsGrid playlists={playlistArray.length && playlistArray} />
-                )}
+                ) :
+                    (
+                        <Loader />
+                    )}
             </SectionWrapper>
         </main>
     );

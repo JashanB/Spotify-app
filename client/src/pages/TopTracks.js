@@ -1,4 +1,4 @@
-import { SectionWrapper, TrackList, TimeRangeButtons } from "../components"
+import { SectionWrapper, TrackList, TimeRangeButtons, Loader } from "../components"
 import { useState, useEffect } from "react"
 import { getTopTracks } from "../spotify";
 import { catchErrors } from '../utils';
@@ -35,7 +35,7 @@ export default function TopTracks({ topTracks }) {
     console.log(tracksObj)
     return (
         <main>
-            {topTracks && (
+            {topTracks ? (
                 <SectionWrapper title="Top Tracks" breadcrumb="true">
                     <TimeRangeButtons
                         activestate={activestate}
@@ -46,7 +46,10 @@ export default function TopTracks({ topTracks }) {
                     />
                     <TrackList tracks={activeRange} />
                 </SectionWrapper>
-            )}
+            ) :
+                (
+                    <Loader />
+                )}
         </main>
     )
 }
