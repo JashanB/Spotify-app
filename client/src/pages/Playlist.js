@@ -59,7 +59,31 @@ export default function Playlist() {
         }
         return tracksArray.map(({ track }) => track);
     }, [tracksArray]);
-    console.log(audioFeatures)
+
+      // Map over tracks and add audio_features property to each track
+  const tracksWithAudioFeatures = useMemo(() => {
+    if (!tracksArray || !audioFeatures) {
+      return null;
+    }
+
+    return tracksArray.map(({ track }) => {
+      const trackToAdd = track;
+
+      if (!track.audio_features) {
+        const audioFeaturesObj = audioFeatures.find(item => {
+          if (!item || !track) {
+            return null;
+          }
+          return item.id === track.id;
+        });
+
+        trackToAdd['audio_features'] = audioFeaturesObj;
+      }
+
+      return trackToAdd;
+    });
+  }, [tracksArray, audioFeatures]);
+
     return (
         <>
             {playlist && (
