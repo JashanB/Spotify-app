@@ -39,9 +39,11 @@ export default function Playlist() {
         catchErrors(fetchMoreData());
 
         const fetchAudioFeatures = async () => {
-            const ids = tracksData.map(({ track }) => track.id).
+            console.log(tracksData)
+            const ids = tracksData.items.map(({ track }) => track.id).
                 join(',');
             const { data } = await getAudioFeaturesForTracks(ids);
+            console.log(data)
             setAudioFeatures(audioFeatures => ([
                 ...audioFeatures ? audioFeatures : [],
                 ...data['audio_features']
@@ -57,7 +59,7 @@ export default function Playlist() {
         }
         return tracksArray.map(({ track }) => track);
     }, [tracksArray]);
-
+    console.log(audioFeatures)
     return (
         <>
             {playlist && (
